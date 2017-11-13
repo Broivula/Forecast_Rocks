@@ -64,7 +64,7 @@ public class Rotation_Arm : MonoBehaviour
     {
         powerSlider.value = releasePower;
 
-        Debug.Log(clampedRotation);
+ //       Debug.Log(clampedRotation);
         if (releasePower > releaseLimit)
         {
             fireReady = true;
