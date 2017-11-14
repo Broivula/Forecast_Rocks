@@ -29,6 +29,10 @@ public class Boulder_collision : MonoBehaviour {
             StartCoroutine(other.gameObject.GetComponent<TriangleExplosion>().SplitMesh(true));
         }
 
+        //poista trail renderer boulderista
+      //  GameObject trailRend = gameObject.GetComponentInChildren<GameObject>();
+       // trailRend.transform.SetParent(GameObject.Find("Trail_Rends").GetComponent<Transform>());
+
         StartCoroutine(WaitTime());
       
     }

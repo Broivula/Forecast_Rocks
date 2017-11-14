@@ -14,29 +14,38 @@ public class Score_floater : MonoBehaviour {
 
         floating_Text = gameObject.GetComponent<Text>();
         StartCoroutine(DeathWait());
-
        
+
 
     }
 
     void Update ()
     {
-        
-       // gameObject.transform.Translate(new Vector3(0, 5, 0) * 0.3f, Space.World);
-     
+
+        // gameObject.GetComponent<RectTransform>().transform.position = new Vector3(0, 0, 0);
+  
+        gameObject.transform.Translate(new Vector3(0, 5, 0) * 0.3f, Space.World);
+
+
     }
 
 
     IEnumerator DeathWait ()
     {
-        /*
-                int randomNumberx = Random.Range(1, 10);
-                Debug.Log("rand " + randomNumberx);
-                int randomNumbery = Random.Range(3, 5);
+        floating_Text.enabled = false;
+        yield return new WaitForEndOfFrame();
+        floating_Text.enabled = true;
+        int randomNumberx = Random.Range(1, 7);
+        Debug.Log("rand " + randomNumberx);
+        int randomNumbery = Random.Range(3, 7);
 
-                gameObject.GetComponent<RectTransform>().position = new Vector3((Screen.width / 5) + ((Screen.width / randomNumberx)), (Screen.height / 2) + (Screen.width / randomNumbery), 0);
-                */
-        gameObject.transform.localPosition = new Vector3(0, 0, 0);
+
+        gameObject.GetComponent<RectTransform>().localPosition = new Vector3((Screen.width / randomNumberx), (Screen.height / randomNumbery), 0);
+        
+   
+           //     gameObject.GetComponent<RectTransform>().position = new Vector3((Screen.width / 5) + ((Screen.width / randomNumberx)), (Screen.height / 2) + (Screen.width / randomNumbery), 0);
+               
+
         yield return new WaitForSeconds(2.0f);
         Destroy(gameObject);
     }

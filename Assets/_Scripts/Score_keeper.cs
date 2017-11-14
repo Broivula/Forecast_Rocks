@@ -24,10 +24,6 @@ public class Score_keeper : MonoBehaviour {
     {
         counter = counter + 1;
 
-        GameObject scroll = Instantiate(floating_score_text_O, destroyedObject.transform.position, Quaternion.identity) as GameObject;
-        scroll.GetComponent<Text>().text = " +" + points;
-        
-        currentScore = currentScore + points;
 
         if (counter >= 5)
         {
@@ -39,8 +35,15 @@ public class Score_keeper : MonoBehaviour {
             bonus_text.fontSize = 55;
             currentScore = currentScore + 5000;
         }
+        else
+        {
+            GameObject scroll = Instantiate(floating_score_text_O, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+            scroll.GetComponent<Text>().text = " +" + points;
 
-        
+            currentScore = currentScore + points;
+        }
+
+
 
         pointsAS.PlayOneShot(scoreSFX[0], 0.75f);
         pointsAS.pitch = pointsAS.pitch + 0.1f;
