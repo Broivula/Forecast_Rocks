@@ -25,7 +25,7 @@ public class Boulder_collision : MonoBehaviour {
             Transform parentT = GameObject.Find("Trail_Rends").GetComponent<Transform>();
             gameObject.transform.GetChild(0).transform.SetParent(parentT);
         }
-      
+       
       
         if (other.gameObject.tag == "Destroyable" && gameObject.GetComponent<Rigidbody>().velocity.magnitude > 5)
         {

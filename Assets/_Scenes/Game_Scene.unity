@@ -546,6 +546,11 @@ Prefab:
       propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114007587719353742, guid: 3e68082f1ba2aba44a868c00692855bb,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 54528881749562480, guid: 3e68082f1ba2aba44a868c00692855bb, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 3e68082f1ba2aba44a868c00692855bb, type: 2}
@@ -965,8 +970,6 @@ GameObject:
   - component: {fileID: 378719669}
   - component: {fileID: 378719668}
   - component: {fileID: 378719667}
-  - component: {fileID: 378719666}
-  - component: {fileID: 378719665}
   m_Layer: 0
   m_Name: Boulder_Cam
   m_TagString: Untagged
@@ -974,20 +977,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &378719665
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 378719664}
-  m_Enabled: 0
---- !u!92 &378719666
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 378719664}
-  m_Enabled: 1
 --- !u!124 &378719667
 Behaviour:
   m_ObjectHideFlags: 0
@@ -1012,7 +1001,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 150
   field of view: 39
   orthographic: 0
   orthographic size: 5
@@ -1024,7 +1013,7 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 0
+  m_HDR: 1
   m_AllowMSAA: 1
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -1934,7 +1923,7 @@ Behaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 573888874}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &573888877
 Camera:
   m_ObjectHideFlags: 0
@@ -2352,6 +2341,11 @@ Prefab:
         type: 2}
       propertyPath: m_UseGravity
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114007587719353742, guid: 3e68082f1ba2aba44a868c00692855bb,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 54528881749562480, guid: 3e68082f1ba2aba44a868c00692855bb, type: 2}
@@ -3626,6 +3620,11 @@ Prefab:
       propertyPath: m_UseGravity
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114007587719353742, guid: 3e68082f1ba2aba44a868c00692855bb,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 54528881749562480, guid: 3e68082f1ba2aba44a868c00692855bb, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 3e68082f1ba2aba44a868c00692855bb, type: 2}
@@ -4485,7 +4484,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1708905987}
   - component: {fileID: 1708905986}
-  - component: {fileID: 1708905985}
   - component: {fileID: 1708905984}
   - component: {fileID: 1708905983}
   m_Layer: 0
@@ -4509,13 +4507,6 @@ Behaviour:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1708905982}
   m_Enabled: 1
---- !u!92 &1708905985
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1708905982}
-  m_Enabled: 1
 --- !u!20 &1708905986
 Camera:
   m_ObjectHideFlags: 0
@@ -4533,7 +4524,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 150
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -4545,8 +4536,8 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 0
-  m_AllowMSAA: 1
+  m_HDR: 1
+  m_AllowMSAA: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -4760,7 +4751,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 480, y: 800}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -4775,7 +4766,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_Camera: {fileID: 1708905986}
   m_PlaneDistance: 100
   m_PixelPerfect: 1
   m_ReceivesEvents: 1
