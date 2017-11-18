@@ -27,6 +27,10 @@ public class Rotation_Arm : MonoBehaviour
     public GameObject cloneBoulder;
     MeshRenderer fakeBoulder;
 
+    //ui boulder
+    GameObject boulder_UI;
+    
+
     Vector3 originalPos, releasePos, delta;
     float clampedRotation, releasePower;
     public bool isBoulderDestroyed;
@@ -127,10 +131,16 @@ public class Rotation_Arm : MonoBehaviour
 
         void LaunchBoulder ()
     {
+
+        //kun kivi ammutaan, poistetaan UI boulder
+        boulder_UI = GameObject.Find("Boulder_UI_" + numberOfThrows);
+        Destroy(boulder_UI);
+
         randomNumber = Random.Range(0, 6);
         Debug.Log("number " + randomNumber);
         Camera.main.transform.position = originalCameraTransform;
         moving = false;
+        
         if (!rotateCatapult.isRotating)                             //varmistus vain siitä, ettei katapultti ammu kun sitä käännetään
         {
             numberOfThrows = numberOfThrows + 1;

@@ -20,6 +20,12 @@ public class Boulder_collision : MonoBehaviour {
     void OnCollisionEnter (Collision other)
     {
         // Debug.Log("nopeus OSUESSA " + gameObject.GetComponent<Rigidbody>().velocity.magnitude);
+        if (gameObject.transform.GetChildCount() > 0)
+        {
+            Transform parentT = GameObject.Find("Trail_Rends").GetComponent<Transform>();
+            gameObject.transform.GetChild(0).transform.SetParent(parentT);
+        }
+      
       
         if (other.gameObject.tag == "Destroyable" && gameObject.GetComponent<Rigidbody>().velocity.magnitude > 5)
         {
@@ -28,10 +34,6 @@ public class Boulder_collision : MonoBehaviour {
             //    Debug.Log("collision succesful");
             StartCoroutine(other.gameObject.GetComponent<TriangleExplosion>().SplitMesh(true));
         }
-
-        //poista trail renderer boulderista
-      //  GameObject trailRend = gameObject.GetComponentInChildren<GameObject>();
-       // trailRend.transform.SetParent(GameObject.Find("Trail_Rends").GetComponent<Transform>());
 
         StartCoroutine(WaitTime());
       
