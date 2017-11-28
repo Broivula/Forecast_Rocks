@@ -42,11 +42,8 @@ public class Boulder_collision : MonoBehaviour {
 
     IEnumerator WaitTime ()
     {
-      
-        
         yield return new WaitForSeconds(2);
         rotArm.isBoulderDestroyed = true;
         Destroy(this.gameObject);
-
     }
 }

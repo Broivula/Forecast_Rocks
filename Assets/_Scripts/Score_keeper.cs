@@ -6,15 +6,17 @@ using System.Collections.Generic;
 public class Score_keeper : MonoBehaviour {
 
     private Text score_text;
+    private Text end_scoretext;
     private int currentScore;
     public AudioSource pointsAS;
     private Floating_Score floatingScore;
     private Text floating_text;
+    private Text unspent1, unspent2;
     public int counter = 0;
     public GameObject floating_score_text_O;
     public int spawnNumber = 0;
     public List<RectTransform> spawnLocations;
-
+    private int kerroin = 30;
     public AudioClip[] scoreSFX;
 
     public RectTransform[] spawn;
@@ -25,7 +27,10 @@ public class Score_keeper : MonoBehaviour {
         score_text = GameObject.Find("Score_text").GetComponent<Text>();
         spawnLocations = new List<RectTransform>();
 
-        for(int i = 0; i < spawn.Length;i++)
+        unspent1 = GameObject.Find("Unspent_text_1").GetComponent<Text>();
+        unspent2 = GameObject.Find("Unspent_text_2").GetComponent<Text>();
+
+        for (int i = 0; i < spawn.Length;i++)
         {
             spawnLocations.Add(spawn[i]);
           
@@ -34,6 +39,13 @@ public class Score_keeper : MonoBehaviour {
       
        
     }
+
+
+    void Update()
+    {
+        score_text.text = " " + currentScore;
+    }
+
 
     public void AddPoints (int points, GameObject destroyedObject)
     {
@@ -62,7 +74,7 @@ public class Score_keeper : MonoBehaviour {
 
 
         pointsAS.PlayOneShot(scoreSFX[0], 0.75f);
-        pointsAS.pitch = pointsAS.pitch + 0.1f;
+        pointsAS.pitch = pointsAS.pitch + 0.05f;
 
 
     }
@@ -78,13 +90,94 @@ public class Score_keeper : MonoBehaviour {
             spawnNumber = 0;
         }
         spawn = spawnLocations[spawnNumber];
-        Debug.Log(spawnNumber);
+
         return spawn;
     }
 
-    void Update ()
+    public IEnumerator LevelCleared()
     {
-        score_text.text = " " + currentScore;
+        end_scoretext = GameObject.Find("Endscore_number").GetComponent<Text>();
+        Animator winAnim = GameObject.Find("Winning_Panel").GetComponent<Animator>();
+        Rotation_Arm arm = GameObject.Find("catapult_arm").GetComponent<Rotation_Arm>();
+        
+
+
+        winAnim.SetTrigger("Winning");
+        int scorenumber = 0;
+
+        for (int i = 0; i < currentScore; i++)
+        {
+            if (currentScore > 12500)
+                kerroin = 45;
+            scorenumber = i * kerroin;
+            end_scoretext.text = " " + scorenumber;
+            if(scorenumber > currentScore)
+            {
+                break;
+            }
+            yield return new WaitForEndOfFrame();
+        }
+
+        end_scoretext.text = "" + currentScore;
+
+        if(arm.numberOfThrows == 1)
+        {
+            scorenumber = currentScore;
+            yield return new WaitForSeconds(1f);
+            AudioSource.PlayClipAtPoint(scoreSFX[2], Camera.main.transform.position, 0.8f);
+            unspent1.enabled = true;
+            //toista ääniefekti
+       
+
+            yield return new WaitForSeconds(1f);
+            AudioSource.PlayClipAtPoint(scoreSFX[2], Camera.main.transform.position, 0.8f);
+            unspent2.enabled = true;
+            //toista ääniefekti
+           
+            scorenumber = currentScore;
+            currentScore = currentScore + 10000;
+
+            for(int i = 0; i < currentScore; i++)
+            {
+                scorenumber = scorenumber + (i + 2);
+                end_scoretext.text = " " + scorenumber;
+                yield return new WaitForEndOfFrame();
+                if (scorenumber > currentScore)
+                    break;
+            }
+
+            Debug.Log("Kaksi pallo jäljel");
+        }
+        else if(arm.numberOfThrows == 2)
+        {
+            yield return new WaitForSeconds(0.5f);
+            AudioSource.PlayClipAtPoint(scoreSFX[2], Camera.main.transform.position, 0.8f);
+            unspent1.enabled = true;
+            //toista ääniefekti
+           
+            scorenumber = currentScore;
+            currentScore = currentScore + 5000;
+
+
+            for (int i = 0; i < currentScore; i++)
+            {
+                Debug.Log("kaksi palloo kertaa");
+                scorenumber = scorenumber + (i + 2);
+                end_scoretext.text = " " + scorenumber;
+                yield return new WaitForEndOfFrame();
+                if (scorenumber > currentScore)
+                    break;
+            }
+
+            Debug.Log("Yksi pallo jäljel");
+        }
+
+
+
+
+        end_scoretext.text = " " + currentScore;
     }
+
+ 
 
 }

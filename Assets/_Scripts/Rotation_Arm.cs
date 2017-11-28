@@ -79,13 +79,6 @@ public class Rotation_Arm : MonoBehaviour
         }
         
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            
-            originalPos = Input.mousePosition;
-
-        }
-
         if (Input.GetMouseButton(0))
         {
         
@@ -93,11 +86,7 @@ public class Rotation_Arm : MonoBehaviour
             
         }
 
-        if(!moving)
-        {
-           
-            power = 0;
-        }
+
 
         //pallo luodaan
         if(Input.GetMouseButtonUp(0) && fireReady)
@@ -108,24 +97,6 @@ public class Rotation_Arm : MonoBehaviour
 
         }
 
-        if(!isBoulderDestroyed)
-        {
-            cloneBoulder = GameObject.Find("Boulder");
-        //    Camera.main.enabled = false;
-            boulderCam.enabled = true;  
-            boulderCam.transform.LookAt(cloneBoulder.transform);
-        }
-        else if(isBoulderDestroyed)
-        {
-            fakeBoulder.enabled = true;
-            boulderCam.enabled = false;
-            GameObject.FindWithTag("MainCamera").GetComponent<Camera>().enabled = true;
-        }
-    
-
-
-      //        Debug.Log("asd " + fireReady);
-      //  Debug.Log("release power " + releasePower);
 
     }
 
@@ -136,8 +107,7 @@ public class Rotation_Arm : MonoBehaviour
         boulder_UI = GameObject.Find("Boulder_UI_" + numberOfThrows);
         Destroy(boulder_UI);
 
-        randomNumber = Random.Range(0, 6);
-        Debug.Log("number " + randomNumber);
+
         Camera.main.transform.position = originalCameraTransform;
         moving = false;
         
@@ -149,7 +119,7 @@ public class Rotation_Arm : MonoBehaviour
             fakeBoulder.enabled = false;                                                               //katapultissa olevan feikkikiven näkyvyys
             sfx.PlaySFX(1, 0.6f);
             catapult_arm_anim.SetTrigger("Catapult_launch");
-            Camera.main.enabled = false;   
+            
             if(!cloneBoulder)
             cloneBoulder = Instantiate(boulder, spawnPoint.position, Quaternion.identity) as GameObject;
             cloneBoulder.gameObject.name = "Boulder";
@@ -159,23 +129,8 @@ public class Rotation_Arm : MonoBehaviour
 
             releasePower = 0;
         }
-
         isBoulderDestroyed = false;
-    }
-
-    void CameraMovement ()
-    {
-        //  Camera.main.enabled = false;
-        if (!isBoulderDestroyed && fireReady)
-        {
-         
-            fireReady = false;
-        }
-        else
-        {
-            boulderCam.enabled = false;
-         
-        }
+        StartCoroutine(ChangeCamera(cloneBoulder));
     }
 
     void OnMouseDrag()
@@ -198,6 +153,29 @@ public class Rotation_Arm : MonoBehaviour
 
             }
     
+    }
+
+    public IEnumerator ChangeCamera (GameObject looking_target)
+    {
+        while (!isBoulderDestroyed)
+        {
+
+            Debug.Log("katsoo" + looking_target);
+            boulderCam.enabled = true;
+            boulderCam.transform.LookAt(looking_target.transform);
+            yield return new WaitForSeconds(0.001f);
+
+        }
+         if (isBoulderDestroyed)
+        {
+            fakeBoulder.enabled = true;
+            boulderCam.enabled = false;
+            GameObject.FindWithTag("MainCamera").GetComponent<Camera>().enabled = true;
+            yield return new WaitForEndOfFrame();
+        }
+
+
+
     }
 
     IEnumerator WaitTime ()

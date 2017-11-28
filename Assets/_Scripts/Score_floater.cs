@@ -22,7 +22,6 @@ public class Score_floater : MonoBehaviour {
        
         spawnPos = score.GetSpawnLocation();
  
-        Debug.Log(spawnPos + " kakka");
 
         StartCoroutine(DeathWait());
     }
