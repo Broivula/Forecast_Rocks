@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class Score_keeper : MonoBehaviour {
 
@@ -11,14 +12,14 @@ public class Score_keeper : MonoBehaviour {
     public AudioSource pointsAS;
     private Floating_Score floatingScore;
     private Text floating_text;
-    private Text unspent1, unspent2;
+    private Text unspent1, unspent2, clear;
     public int counter = 0;
     public GameObject floating_score_text_O;
     public int spawnNumber = 0;
     public List<RectTransform> spawnLocations;
-    private int kerroin = 30;
+    private int kerroin = 50;
     public AudioClip[] scoreSFX;
-
+    public List<int> pointsNeeded;
     public RectTransform[] spawn;
 
     void Awake ()
@@ -29,7 +30,7 @@ public class Score_keeper : MonoBehaviour {
 
         unspent1 = GameObject.Find("Unspent_text_1").GetComponent<Text>();
         unspent2 = GameObject.Find("Unspent_text_2").GetComponent<Text>();
-
+        
         for (int i = 0; i < spawn.Length;i++)
         {
             spawnLocations.Add(spawn[i]);
@@ -108,7 +109,7 @@ public class Score_keeper : MonoBehaviour {
         for (int i = 0; i < currentScore; i++)
         {
             if (currentScore > 12500)
-                kerroin = 45;
+                kerroin = 65;
             scorenumber = i * kerroin;
             end_scoretext.text = " " + scorenumber;
             if(scorenumber > currentScore)
@@ -171,11 +172,23 @@ public class Score_keeper : MonoBehaviour {
 
             Debug.Log("Yksi pallo jäljel");
         }
-
-
-
-
+        clear = GameObject.Find("Clear_text").GetComponent<Text>();
+        if(!clear)
+        {
+            clear = GameObject.Find("Clear_text").GetComponent<Text>();
+        }
         end_scoretext.text = " " + currentScore;
+
+        yield return new WaitForSeconds(1.5f);
+        if (currentScore >= pointsNeeded[SceneManager.sceneCount])
+        {
+            //ääniefekti voitosta
+            AudioSource.PlayClipAtPoint(scoreSFX[3], Camera.main.transform.position, 0.5f);
+            clear.enabled = true;
+        }
+
+
+       
     }
 
  
